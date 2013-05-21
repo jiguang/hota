@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hota! 链接热点图工具</title>
+    <meta charset="gbk">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.2.custom.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui-1.10.2.custom.min.css">
+    <script type="text/javascript" src="js/ZeroClipboard.min.js"></script>
+    <script type="text/javascript" src="js/hota.js"></script>
+    <link rel="stylesheet" href="css/style.css?t=20130506144707">
+</head>
+<body>
+<div class="wrap clear">
+    <div id="browser_tip" class="tip">为了更好的使用体验，建议您使用 Chrome 或 Firefox 浏览器 ：）</div>
+
+    <h1>Hota! <em>A Hot Anchor Tool Can Make Your Life Easier ^_^</em></h1>
+
+    <div class="toolbar step1">
+        <h2>第一步：点击【上传图片】按钮上传图片并复制图片地址，将图片地址粘贴在输入框内</h2>
+        <a class="button" id="upload" href="http://ppms.paipaioa.com/php/photos.php" title="上传图片并获取地址" target="_blank">上传图片</a>
+        <input id="img_src" class="img_src" type="text" placeholder="请粘贴背景图片地址到这里">
+    </div>
+
+    <div class="toolbar step2">
+        <h2>第二步：点击【添加热点】向背景图中添加链接热点，鼠标拖动改变热点位置，【Shift+键盘方向键】微调位置，右键设置链接参数，【Delete】删除</h2>
+        <a class="button" id="add" href="" title="添加链接热点">添加热点</a>
+    </div>
+
+    <div id="workshop" class="workshop clear">
+            <!-- S Hota -->
+            <div id="hota_canvas" class="hota_canvas">
+                <img id="bg" src="http://tacs.oa.com/img.php?985*265">
+                <div id="area_info" class="area_info"></div>
+                <div id="h_line" class="h_line"></div>
+                <div id="v_line" class="v_line"></div>
+            </div>
+            <!-- E Hota -->
+    </div>
+    <div class="toolbar step3">
+        <h2>第三步：生成代码</h2>
+        <a class="button" id="get_code" href="" title="">生成代码</a>
+        <span id="msg"></span>
+    </div>
+
+    <div class="toolbar">
+        <h2>第四步：点击按钮复制代码到剪贴板，在Page系统中新建页面片，切换到【代码模式】，将代码粘贴到编辑框并保存。将页面片地址交给开发即可。</h2>
+        <textarea name="" id="code_wrap" cols="80" rows="40"></textarea>
+        <a class="button" id="btn_copy" data-clipboard-target="code_wrap"  href="" title="">复制代码</a>
+    </div>
+</div>
+
+<div id="context_menu" class="context_menu">
+    <div class="row clear">
+        <div class="tit"><label for="link_addr">链接地址:</label></div>
+        <div class="cnt"><input type="text" id="link_addr" placeholder="http://"></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="link_tit">提示文字:</label></div>
+        <div class="cnt"><input type="text" id="link_tit" placeholder="请输入提示文字"></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="">打开方式:</label></div>
+        <div class="cnt" id="open_type">
+            <label for="_blank">新窗口<input type="radio" name="open_type" id="_blank" checked></label>
+            <label for="_self">本窗口<input type="radio" name="open_type" id="_self"></label>
+        </div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit">&nbsp;</div>
+        <div class="cnt">
+            <button type="button" id="confirm">确定</button>
+            <button type="button" id="cancel">取消</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

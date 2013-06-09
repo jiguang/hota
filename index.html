@@ -14,7 +14,7 @@
 <div class="wrap clear">
     <div id="browser_tip" class="tip">为了更好的使用体验，建议您使用 Chrome 或 Firefox 浏览器 ：）</div>
 
-    <h1>Hota! <em>A Hot Anchor Tool Can Make Your Life Easier ^_^</em></h1>
+    <h1>Hota! <em>A Hot Anchor Tool Can Make Your Life Easier ^_^ &nbsp; ECD平台一组前端开发组</em></h1>
 
     <div class="toolbar step1">
         <h2>第一步：点击【上传图片】按钮上传图片并复制图片地址，将图片地址粘贴在输入框内</h2>
@@ -23,17 +23,21 @@
     </div>
 
     <div class="toolbar step2">
-        <h2>第二步：点击【添加热点】向背景图中添加链接热点，鼠标拖动改变热点位置，【Shift+键盘方向键】微调位置，右键设置链接参数，【Delete】删除</h2>
-        <a class="button" id="add" href="" title="添加链接热点">添加热点</a>
+        <h2>第二步：点击背景图中任意位置添加链接热点，鼠标拖动改变热点位置，【Shift+键盘方向键】微调位置，右键设置链接参数，【Delete】删除</h2>
+        <!--<a class="button" id="add" href="" title="添加链接热点">添加热点</a>-->
     </div>
 
     <div id="workshop" class="workshop clear">
             <!-- S Hota -->
-            <div id="hota_canvas" class="hota_canvas">
-                <img id="bg" src="http://tacs.oa.com/img.php?985*265">
-                <div id="area_info" class="area_info"></div>
-                <div id="h_line" class="h_line"></div>
-                <div id="v_line" class="v_line"></div>
+            <style scoped="scoped">
+                .hota_canvas a{position: absolute; background-image: url(about:blank);}
+                .hota_canvas a, .hota_canvas a:hover{text-decoration: none;}
+            </style>
+            <div class="hota_canvas">
+                <img class="bg" src="img/sample.png">
+                <div class="area_info"></div>
+                <div class="h_line"></div>
+                <div class="v_line"></div>
             </div>
             <!-- E Hota -->
     </div>
@@ -53,12 +57,17 @@
 <div id="context_menu" class="context_menu">
     <div class="row clear">
         <div class="tit"><label for="link_addr">链接地址:</label></div>
-        <div class="cnt"><input type="text" id="link_addr" placeholder="http://"></div>
+        <div class="cnt"><input type="text" id="link_addr" placeholder="http://" autofocus></div>
     </div>
 
     <div class="row clear">
         <div class="tit"><label for="link_tit">提示文字:</label></div>
         <div class="cnt"><input type="text" id="link_tit" placeholder="请输入提示文字"></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="ptag">PTAG:</label></div>
+        <div class="cnt"><input type="text" id="ptag" placeholder="输入的 PTAG 将自动拼接到链接之后"></div>
     </div>
 
     <div class="row clear">

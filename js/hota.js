@@ -9,13 +9,13 @@ $(function(){
     "use strict";
 
     var config = {
-        canvas: '#hota_canvas',
+        canvas: '.hota_canvas',
         hot_area: 'a',
         init_width: 100,
         init_height: 100,
-        area_info: '#area_info',
-        v_line: '#v_line',
-        h_line: '#h_line',
+        area_info: '.area_info',
+        v_line: '.v_line',
+        h_line: '.h_line',
         tolerance: 5
     };
     var $cur = null;
@@ -28,8 +28,6 @@ $(function(){
         $hot_list.each(function(){
             $(this)
                 .css({
-                    'position': 'absolute',
-                    'background-image': 'url(about:blank)',
                     'width': $(this).width(),
                     'height': $(this).height()
                 }).resizable({
@@ -134,14 +132,14 @@ $(function(){
 
         // 图片地址
         if($('#bg').attr('src') != ''){
-            $('#img_src').val($('#bg').attr('src'));
+//            $('#img_src').val($('#bg').attr('src'));
         }
 
         // 辅助信息
         if(!$(config.canvas).find(config.area_info)[0]){
             $(config.canvas).append('<div id="area_info" class="area_info"></div>\
-                <div id="h_line" class="h_line"></div>\
-                <div id="v_line" class="v_line"></div>');
+                <div class="h_line"></div>\
+                <div class="v_line"></div>');
         }
 
         // 代码框清空
@@ -161,50 +159,45 @@ $(function(){
             alert('复制成功，请将代码粘贴到新建的页面片中或直接使用');
         });
 
-
     }
 
     function addZone(position){
 
-        position = position || {
-            top: 10,
-            left: 10
-        };
-
         var $hot_list = $(config.canvas).find(config.hot_area),
-            $hot_area = $('<a class="'+config.hot_area.substr(1)+'" href=""></a>');
+            $hot_area = $('<a class="'+config.hot_area.substr(1)+'" href="">&nbsp;</a>');
 
-        $hot_area.appendTo($(config.canvas))
-            .css({
-                'position': 'absolute',
-                'background-image': 'url(about:blank)',
-                'width': config.init_width,
-                'height':  config.init_height,
-                'top':  position.top,
-                'left':  position.left
-            });
+            $hot_area.appendTo($(config.canvas))
+                .css({
+                    'width': config.init_width,
+                    'height':  config.init_height,
+                    'top':  position.top,
+                    'left':  position.left
+                });
 
+            if($hot_list.length > 0){
+                $cur = $hot_area;
+                var $last = $hot_list.last();
+
+                $hot_area
+                    .css({
+                        'width': $last.width(),
+                        'height': $last.height()
+                    });
+            }
         // 重新初始化
         init();
-
-        if($hot_list.length > 0 && !position){
-            $cur = $hot_area;
-            $hot_area
-                .css('left', ($hot_list.last().position().left || 0) + 10)
-                .css('top', ($hot_list.last().position().top || 0) + 10);
-        }
     }
 
-    $('#add').click(function(e){
-        e.preventDefault();
-        addZone();
-    });
+//    $('#add').click(function(e){
+//        e.preventDefault();
+//        addZone({top: 10, left: 10});
+//    });
 
     // 设置图片地址
     $('#img_src').on('keyup blur', function(){
         if(/http:\/\/.*?(jpg|jpeg|png|bmp|\d)/.test($(this).val())){
-            $('#bg').attr('src', $(this).val());
-            $('#bg').load(function(){
+            $('.bg').attr('src', $(this).val());
+            $('.bg').load(function(){
                 $(config.canvas).width($(this).width()).height($(this).height());
             });
         }
@@ -275,9 +268,16 @@ $(function(){
             $('#link_addr').val($cur.attr('href'));
             $('#link_tit').val($cur.attr('title'));
 
+            $('#ptag').val($cur.attr('href').toLocaleLowerCase().indexOf('ptag') > 0 ? $cur.attr('href').match(/PTAG=([.0-9]*)/i)[1] : '');
+
+
             if($(e.target).attr('target') != undefined){
                 $('#'+$(e.target).attr('target'))[0].checked = true;
             }
+
+            setTimeout(function(){
+                $('#link_addr').focus();
+            }, 100);
         }
         e.stopPropagation();
     }).click(function(e){
@@ -288,13 +288,10 @@ $(function(){
                 $cur.addClass('cur').siblings().removeClass('cur');
             }else{
                 addZone({
-                   top: e.pageY - $(e.target).offset().top - 10,
+                    top: e.pageY - $(e.target).offset().top - 10,
                     left: e.pageX - $(e.target).offset().left - 10
                 });
             }
-
-
-
             e.stopPropagation();
         });
 
@@ -310,8 +307,13 @@ $(function(){
                 return;
             }
 
-            $cur.attr('href', $('#link_addr').val())
-                .attr('title', $('#link_tit').val())
+            if($('#link_addr').val().toLocaleLowerCase().indexOf('ptag') < 0){
+                $cur.attr('href', $('#link_addr').val() + '?PTAG=' + $('#ptag').val());
+            }else{
+                $cur.attr('href', $('#link_addr').val().replace(/PTAG=([.0-9]*)/ig, 'PTAG=' + $('#ptag').val()));
+            }
+
+            $cur.attr('title', $('#link_tit').val())
                 .attr('target', $('#open_type input:checked')[0].id);
 
             $('#context_menu').hide();
@@ -337,10 +339,11 @@ $(function(){
                 'width': $(config.canvas).find('img').width(),
                 'height': $(config.canvas).find('img').height(),
                 'position': 'relative'
-            }).removeAttr('class').end()
-            .find('#area_info, #v_line, #h_line').remove().end()
+            }).end()
+            .find('img').removeAttr('class').end()
+            .find('.area_info, .v_line, .h_line').remove().end()
             .find('.ui-resizable-handle').remove().end()
-            .find(config.hot_area).removeAttr('class').end()
+            .find(config.hot_area).css('position','').removeAttr('class').end()
             .html()
             .replace(/\s{2,}/ig, '');
 

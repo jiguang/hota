@@ -19,7 +19,7 @@ body{font: 12px/1.5em arial;}
 .hota_canvas img{display: block;}
 .hota_canvas a{position: absolute;height: 100px; width: 100px; /*background-color: rgba(0, 255, 0, 0.3);*/ background-color: #0f0; opacity: 0.3; filter: alpha(opacity=30); top: 10px; left: 10px; outline: none;}
 .hota_canvas a.cur{/*background-color: rgba(255, 100, 100, 0.7);*/background-color: #f22; opacity: 0.7; filter: alpha(opacity=70);}
-.hota_canvas a:hover{text-decoration: none;}
+.hota_canvas a, .hota_canvas a:hover{text-decoration: none;}
 .wrap{ -wekit-user-select: none; -mox-user-select: none;}
 #msg{color: #666; line-height: 30px;}
 .toolbar{zoom: 1; margin-bottom: 15px;}
@@ -27,7 +27,7 @@ body{font: 12px/1.5em arial;}
 .toolbar h2{ font:bold 14px/1.5em \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei"; color: #333; margin-bottom: 10px;}
 .img_src{float:left; width: 500px; height: 24px; line-height: 24px; padding: 2px 10px; border: 1px solid #d70000; }
 .button{float: left; height: 24px; padding: 2px 15px; border: 1px solid #d70000; margin-right: 10px; text-align: center; color: #fff; background-color: #d70000; text-decoration: none; font: bold 14px/24px \5FAE\8F6F\96C5\9ED1, "Microsoft YaHei";}
-.context_menu{display: none; width: 342px; height: 108px; padding: 10px; background-color: #f0f0f0; border: 1px solid #666;position: absolute; z-index: 100; box-shadow: 1px 1px 2px #999;}
+.context_menu{display: none; width: 342px; height: 140px; padding: 10px; background-color: #f0f0f0; border: 1px solid #666;position: absolute; z-index: 100; box-shadow: 1px 1px 2px #999;}
 .context_menu label{cursor: pointer; margin-right: 15px;}
 .context_menu input[type="text"]{width: 260px; font-size: 14px;}
 .context_menu input[type="radio"]{vertical-align: -2px; margin-left: 5px;}

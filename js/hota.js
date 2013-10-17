@@ -300,6 +300,7 @@ $(function(){
         e.stopPropagation();
     });
 
+    // 确认更改
     $('#confirm').click(function(){
         if($cur){
             if(!/^http:\/\/.*/.test($.trim($('#link_addr').val()))){
@@ -308,7 +309,8 @@ $(function(){
             }
 
             if($('#link_addr').val().toLocaleLowerCase().indexOf('ptag') < 0){
-                $cur.attr('href', $('#link_addr').val() + '?PTAG=' + $('#ptag').val());
+                var hash = $('#link_addr').val().replace(/.*?(#.*)/ig, '$1');
+                $cur.attr('href', $('#link_addr').val().replace(/#.*/ig, '') + '?PTAG=' + $('#ptag').val() + hash);
             }else{
                 $cur.attr('href', $('#link_addr').val().replace(/PTAG=([.0-9]*)/ig, 'PTAG=' + $('#ptag').val()));
             }

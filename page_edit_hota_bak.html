@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>HOTA 链接热点图工具</title>
+    <meta charset="gbk">
+    <script type="text/javascript" src="http://ppms.paipaioa.com/hota/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://ppms.paipaioa.com/hota/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <link rel="stylesheet" href="http://ppms.paipaioa.com/hota/css/jquery-ui-1.10.2.custom.min.css">
+    <script type="text/javascript" src="http://ppms.paipaioa.com/hota/js/ZeroClipboard.min.js"></script>
+    <script type="text/javascript" src="http://ppms.paipaioa.com/hota/js/hota.js?t=20131107"></script>
+    <link rel="stylesheet" href="http://ppms.paipaioa.com/hota/css/style.css?t=20131107">
+</head>
+<body>
+<div class="hota_wrap clear">
+    <div id="browser_tip" class="tip">请在 Chrome 浏览器中使用本工具 :)</div>
+
+    <h1 style="display: none;">HOTA 链接热点图工具</h1>
+
+    <div class="toolbar step1">
+        <!--<h2>第一步：点击【上传图片】按钮上传图片并复制图片地址，将图片地址粘贴在输入框内</h2>-->
+        <a class="button" id="upload" href="http://ppms.paipaioa.com/php/photos.php" title="上传图片并获取地址" target="_blank">上传图片</a>
+        <input id="img_src" class="input img_src" type="text" placeholder="请粘贴背景图片地址到这里">
+        <a class="help" href="http://km.oa.com/group/20701/docs/show/122840" target="_blank">HOTA 帮助文档</a>
+    </div>
+
+    <div class="toolbar step2">
+        <!--<h2>点击背景图中任意位置添加链接热点，鼠标拖动改变热点位置，【Shift+键盘方向键】微调位置，右键设置链接参数，【Delete】删除</h2>-->
+        <!--<a class="button" id="add" href="" title="添加链接热点">添加热点</a>-->
+    </div>
+
+    <div id="workshop" class="workshop clear">
+        <!-- S Hota -->
+        <style scoped="scoped">
+            .hota_canvas a{position: absolute; background-image: url(about:blank);}
+            .hota_canvas a, .hota_canvas a:hover{text-decoration: none;}
+        </style>
+        <div class="hota_canvas">
+            <img class="hota_bg" src="http://pics0.paipaiimg.com/update/20131106/index_sample.png">
+            <div class="area_info"></div>
+            <div class="h_line"></div>
+            <div class="v_line"></div>
+        </div>
+        <!-- E Hota -->
+    </div>
+
+    <div class="toolbar step4">
+        <div class="code">
+            <form id="form" action="http://ppms.paipaioa.com/php/page_save.php" method="post">
+                <div class="page_info">
+                    <label for="page_id"><span class="tit">页面编号</span><input id="page_id" name="page_id" class="input" type="text" value="{{page_id}}" readonly="readonly" placeholder="保存到 PAGE 系统时自动生成"></label>
+                    <label for="page_name"><span class="tit">文件名</span><input id="page_name" name="page_name" class="input" type="text" placeholder="页面文件名 如 hota_test.shtml" value="{{page_name}}"></label>
+                    <label for="page_desc"><span class="tit">页面描述</span><input id="page_desc" name="page_desc" class="input" type="text" placeholder="页面描述" value="{{page_desc}}"></label>
+                    <input id="page_kind" class="input" type="hidden" placeholder="位置" name="page_kind" value="0"> <!-- 默认都存在 index 下 暂时不许更改 -->
+                    <input id="page_type" class="input" type="hidden" placeholder="类型" name="page_type" value="0"> <!-- 默认都选择 html 类型 暂时不许更改 -->
+                    <label for="page_path"><span class="tit">存储位置</span><input id="page_path" name="page_path" class="input" type="text" placeholder="存储位置 如 static/sinclude/" value="{{page_path}}"></label>
+                    <textarea style="display:none;" name="page_content" id="page_content" cols="30" rows="10">{{page_content}}</textarea>
+                    <a class="button" id="btn_save_ppms" href="">保存到 PAGE 系统</a>
+                    <a class="button" id="" href="http://ppms.paipaioa.com/php/page.php">返回 PAGE 系统</a>
+                </div>
+
+                <div class="code_copy">
+                    <textarea name="" id="code_wrap" class="code_wrap" cols="80" rows="40"></textarea>
+                    <a class="button" id="btn_get" href="" title="">生成代码</a>
+                    <a class="button" id="btn_copy" data-clipboard-target="code_wrap"  href="" title="">复制代码</a>
+                    <!--<a class="button" id="btn_set" href="" title="">读取代码到编辑区</a>   暂时隐藏读取功能 -->
+                    <span class="tip" id="msg_tip"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="context_menu" class="context_menu">
+    <div class="row clear">
+        <div class="tit"><label for="link_addr">链接地址:</label></div>
+        <div class="cnt"><input type="text" id="link_addr" placeholder="http://" autofocus></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="link_tit">提示文字:</label></div>
+        <div class="cnt"><input type="text" id="link_tit" placeholder="请输入提示文字"></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="ptag">PTAG:</label></div>
+        <div class="cnt"><input type="text" id="ptag" placeholder="输入的 PTAG 将自动拼接到链接之后"></div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit"><label for="">打开方式:</label></div>
+        <div class="cnt" id="open_type">
+            <label for="_blank">新窗口<input type="radio" name="open_type" id="_blank" checked></label>
+            <label for="_self">本窗口<input type="radio" name="open_type" id="_self"></label>
+        </div>
+    </div>
+
+    <div class="row clear">
+        <div class="tit">&nbsp;</div>
+        <div class="cnt">
+            <button type="button" id="btn_confirm">确定</button>
+            <button type="button" id="btn_cancel">取消</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

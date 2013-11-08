@@ -42,6 +42,19 @@ $(function(){
             init();
         }
 
+        // 设置默认存储位置
+        var $page_path = $('#page_path');
+        if($.trim($page_path.val()) === ''){
+            $page_path.val($page_path.attr('data-value'));
+        }
+
+        // 设置默认的文件名
+        var $page_name = $('#page_name');
+        if($.trim($page_name.val()) === ''){
+            var d = new Date();
+            $page_name.val(d.getFullYear() + '_' + (d.getMonth() + 1) + '_' + d.getDay() + '_' + Math.floor(Math.random()*10000) + '.html');
+        }
+
         // 热区初始化
         var $hot_list = $(config.canvas).find(config.hot_area);
 

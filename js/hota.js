@@ -263,7 +263,11 @@ $(function(){
                     }
 
                 }else{
-                    $cur.attr('href', $(config.link).val().replace(/PTAG=([.0-9]*)/ig, 'PTAG=' + $(config.ptag).val()));
+                    $cur.attr('href',
+                        $.trim($(config.ptag).val()) != '' ?
+                            $(config.link).val().replace(/PTAG=([.0-9]*)/ig, 'PTAG=' + $(config.ptag).val()) :
+                            $(config.link).val()
+                    );
                 }
 
                 $cur.attr('title', $('#link_tit').val())
@@ -435,7 +439,9 @@ $(function(){
             .find('.ui-resizable-handle').remove().end()
             .find(config.hot_area).css('position','').removeAttr('class').end()
             .html()
-            .replace(/\s{2,}/ig, '');
+            .replace(/<a/ig, '    <a')
+            .replace(/<\/a>/ig, '<\/a>\r');
+//            .replace(/\s{2,}/ig, '');
 
     }
 

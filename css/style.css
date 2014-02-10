@@ -15,7 +15,7 @@ body{font: 12px/1.5em arial;}
 .hota_wrap h1 a{font-style: normal; color: #BDC3C7; font-size: 14px; text-decoration: none;}
 .tip{display: none; padding: 5px 10px; background-color: #FFFAE3; border: 1px solid #EACAA5; color: #333; margin-bottom: 15px;}
 #msg_tip{float: left; }
-.workshop{ min-width: 1225px; min-height: 100px;  overflow: hidden; *zoom:1;}
+.workshop{ min-width: 1225px; min-height: 100px; *zoom:1;}
 .hota_canvas{ float: left;border: 1px solid #BDC3C7; position: relative;}
 .hota_canvas img{display: block;}
 .hota_canvas a{position: absolute;height: 100px; width: 100px; /*background-color: rgba(0, 255, 0, 0.3);*/ background-color: #0f0; opacity: 0.3; filter: alpha(opacity=30); top: 10px; left: 10px; outline: none;}
